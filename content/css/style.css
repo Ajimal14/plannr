@@ -164,15 +164,77 @@ z-index: 100;
   background: rgba(255,255,255,0.1);
 }
 .popup {
-  width: 90%;
-  height: 400px;
-  background: green;
+width: 80%;
+height: 700px;
+background: linear-gradient(to right, rgba(203,45,62,0.9), rgba(239,71,58,0.9));
+display: none;
+position: fixed;
+top:10%;
+left: 10%;
+z-index: 1000;
+padding: 10px;
+border: 2px solid #fff;
+}
+.navig {
+  width: 50%;
+  left: 22%;
+  margin: 0 auto;
+  color: #FFF;
+  text-align: center;
+  cursor:pointer;
+  font-family: 'Josefin Slab', serif;
+  font-size: 56px;
   position: fixed;
-  top: 20%;
-  left: 5%;
-  z-index: 100;
+  top: 35%;
+  border: 2px solid #fff;
+}
+.popup hr {
+  position: absolute;
+  top: 55%;
+  left: 12%;
+}
+.close {
+  float: right;
+  color: #FFF;
+  font-size: 40px;
+  cursor: pointer;
+}
+.plan{
+  width: 50%;
+  left: 22%;
+  margin: 0 auto;
+  color: #FFF;
+  text-align: center;
+  cursor:pointer;
+  font-family: 'Josefin Slab', serif;
+  font-size: 56px;
+  position: fixed;
+  top: 65%;
+  border: 2px solid #fff;
+}
+.results {
+  list-style: none;
+  width: 40%;
+  float: left;
+}
+.results li {
+font-family: 'Josefin Slab', serif;
+font-size: 32px;
+font-weight: bolder;
+cursor: pointer;
+padding: 5px 10px;
+color: #fff;
+}
+.foods {
+  background: url('../img/22.jpeg');
+  width: 50%;
+  float: right;
+  height: 1000px;
+  background-attachment: fixed;
+  background-size: cover;
   display: none;
 }
+
   @media only screen and (max-width:500px)  {
   /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
 body {
@@ -279,28 +341,74 @@ body {
     padding: 7px;
     border-radius: 5px;
   }
+  .results {
+    width: 90%;
+    margin: 0 auto;
+  }
 .results  li{
   display: block;
   text-decoration: none;
   color: #fff;
   cursor:pointer;
   text-align: left;
-  padding: 10px;
+  padding: 7px;
+  font-size: 20px;
   font-family: 'Josefin Slab', serif;
-font-weight: bolder;
+  font-weight: bolder;
+  margin-left: 20px;
 }
 .popup {
   width: 80%;
   height: 400px;
-  background: rgba(255,255,255,0.6);
+  background: linear-gradient(to right, rgba(203,45,62,0.9), rgba(239,71,58,0.9));
   display: none;
   position: fixed;
   top:20%;
   left: 5%;
   z-index: 1000;
   padding: 10px;
+  border: 2px solid #fff;
 }
-
+.navig {
+  width: 50%;
+  left: 22%;
+  margin: 0 auto;
+  color: #FFF;
+  text-align: center;
+  cursor:pointer;
+  font-family: 'Josefin Slab', serif;
+  font-size: 26px;
+  position: fixed;
+  top: 35%;
+  border: 2px solid #fff;
+}
+.popup hr {
+  position: absolute;
+  top: 55%;
+  left: 12%;
+}
+.close {
+  float: right;
+  color: #FFF;
+  font-size: 30px;
+  cursor: pointer;
+}
+.plan{
+  width: 50%;
+  left: 22%;
+  margin: 0 auto;
+  color: #FFF;
+  text-align: center;
+  cursor:pointer;
+  font-family: 'Josefin Slab', serif;
+  font-size: 26px;
+  position: fixed;
+  top: 65%;
+  border: 2px solid #fff;
+}
+.foods {
+  display: none;
+}
  }
   /*@media (min-width:480px)  { /* smartphones, Android phones, landscape iPhone */ }*/
   /*@media (min-width:600px)  { /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */ }*/
