@@ -7,21 +7,15 @@
     <link rel="stylesheet" href="content/css/style.css">
     <link rel="stylesheet" href="content/css/animate.css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab|Satisfy" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Caveat|Nanum+Pen+Script" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script|Raleway" rel="stylesheet">
     <link rel="stylesheet" href="content/css/font-awesome.min.css">
   </head>
   <body>
-    <nav class="navbar">
-      <span class="logo">Plannr</span>
-      </nav>
-    <div class="container">
-      <div class="search">
-      <h1>Find Your Perfect Place!</h1>
-      <p class="center"><input type="text" id ="getCity"><i class="fa fa-search" id="searchPlaces"></i></p>
-    </div>
-    </div>
-<div>
-<h1 class="headings">Hot Happenings Near You!</h1>
+<nav class="navigation">
+<span class="logo">Plannr</span>
+</nav>
+<div class="wrapper">
+<h1 class="headings">Places Near You!</h1>
   <ul id="rest"></ul>
   <div id="map">
     <iframe
@@ -39,7 +33,21 @@
 
 <div class="results"></div>
 <div class="foods"></div>
-<div class="popup"></div>
-    <script src="content/js/geolocation.js" charset="utf-8"></script>
+<div class="popup animated SlideInLeft">
+  <span class="close"><i class="fa fa-times-circle" aria-hidden="true"></i></span>
+  <div class="popup-body">
+  </div>
+</div>
+<footer class="main">
+
+</footer>
+
+<footer class="mobile">
+<i class="fa fa-bars hamburgur" aria-hidden="true"></i>
+<i class="fa fa-user-circle-o " id="login" aria-hidden="true"></i>
+<i class="fa fa-search" id="search" aria-hidden="true"></i>
+</footer>
+
+  <script src="content/js/geolocation.js" charset="utf-8"></script>
   </body>
 </html>
