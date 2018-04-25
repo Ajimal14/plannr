@@ -6,50 +6,9 @@
     const findEstablishment = (id)=>fetch(`https://developers.zomato.com/api/v2.1/establishments?city_id=${id}`,{  method: 'GET',headers: new Headers({'user-key': '4319603cbb48b9c4fb5a3211714b89d1'})})
     const filterByEstablishment = (id)=> fetch(`https://developers.zomato.com/api/v2.1/search?lat=${currentLocation.lat}&lon=${currentLocation.lng}&establishment_type=${id}&sort=real_distance`,{ method: 'GET', headers: new Headers({'user-key': '4319603cbb48b9c4fb5a3211714b89d1'})})
     const fetchTime = (origin,destination) => fetch(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=${origin.lat},${origin.lng}&destinations=${destination}&key=AIzaSyC5b-rPcanrIQkMY4wd2Sq7C8jdjz-rZJc`,{method: 'GET',mode: 'cors',headers : new Headers({'Access-Control-Allow-Origin' : '*'})})
-  //Markup of Popup
-    const popup = {
-        show : () => {
-        setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceOut')},100);
-        setTimeout(()=>{document.querySelector('.popup').classList.add('bounceIn')},100);
-        document.querySelector('.popup').style.display  = 'block';
-        document.querySelector('.popup-body').innerHTML  = `
-        <h1 class="locationName"></h1>
-          <div class='navig'>
-                 <i class="fa fa-car" aria-hidden="true"></i><br>Navigate
-         </div>
-          <div class='plan'>
-                 <i class="fa fa-users" aria-hidden="true"></i><br>Plan
-          </div>
-           `;
-        document.querySelector('.close').addEventListener('click',()=> {
-          setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceIn')},100);
-          setTimeout(()=>{document.querySelector('.popup').classList.add('bounceOut')},100);
-         })
-        },
-        close : ()=>{
-          setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceIn')},100);
-          setTimeout(()=>{document.querySelector('.popup').classList.add('bounceOut')},100);
-        },
-        login : ()=> {
-          setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceOut')},100);
-          setTimeout(()=>{document.querySelector('.popup').classList.add('bounceIn')},100);
-          document.querySelector('.popup').style.display  = 'block';
-          document.querySelector('.popup-body').innerHTML  =
-          `<button class='login'>Login</button>
-          <button class='signup'>Signup</button>
-          <div class="containment animated"></div>`
-          document.querySelector('.close').addEventListener('click',()=> {
-            setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceIn')},100);
-            setTimeout(()=>{document.querySelector('.popup').classList.add('bounceOut')},100);
-           })
-        }
-    }
     // Search Places by Location
     document.querySelector('#search').addEventListener('click',()=> {
-    document.querySelector('.navigation').innerHTML =
-  `
-    <input type='text' id ='getCity' class="animated slideInDown"></input>
-    `;
+    document.querySelector('.navigation').innerHTML =`<input type='text' id ='getCity' class="animated slideInDown"></input>  `;
     document.querySelector('#getCity').focus();
     document.querySelector('#getCity').addEventListener("keyup", function(e) {
     e.preventDefault();
@@ -57,11 +16,12 @@
      (async()=>{
        popup.close();
        let data = await(await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(document.querySelector('#getCity').value)}&key=AIzaSyDMiNEO6NFZZywezqZ0A8YLQ5cd-eMhb6M`)).json()
-       currentLocation.lat = data.results[0].geometry.location.lat;
-       currentLocation.lng = data.results[0].geometry.location.lng;
+              currentLocation.lat = data.results[0].geometry.location.lat;
+              currentLocation.lng = data.results[0].geometry.location.lng;
        let zomatoData = await( await fetchZomato(currentLocation)).json()
-      currentArray = zomatoData.nearby_restaurants;
+              currentArray = zomatoData.nearby_restaurants;
       let est = await ( await findEstablishment(zomatoData.location.city_id)).json()
+              document.querySelector('.results').innerHTML = '';
       showPlaces(currentArray);
       showPlacesType(est.establishments);
    })()
@@ -77,24 +37,23 @@
     }
     else {
       return `
-        <input type='text' placeholder = "User Name"  id="cu_username"required>
-        <input type='text' placeholder = "Full Name" id="cu_fname" required>
-        <input type='email' placeholder = "Email Address" id="cu_email" required> <br>
-        <i class="fa fa-mars " aria-hidden="true"></i><input  class ="gender" type='radio' name='gender' value='Male'>
-        <i class="fa fa-venus " aria-hidden="true"></i><input class ="gender" type='radio' name = 'gender'value='Female'>
-        <i class="fa fa-genderless " aria-hidden="true"></i><input class ="gender" type='radio' name='gender' value='Others'>
-        <input type='text' placeholder='Date Of Birth' id="cu_dob">
-        <input type='password' placeholder='Enter Password' id="cu_password" required>
-        <input type='password'  placeholder = 'Confirm Password' id="cu_password2" required>
-        <button class='create'>Create Account</button>
-  `
+      <input type='text' placeholder = "User Name"  id="cu_username" required>
+      <input type='text' placeholder = "Full Name" id="cu_fname" required>
+      <input type='email' placeholder = "Email Address" id="cu_email" required> <br>
+      <i class="fa fa-mars " aria-hidden="true"></i><input  class ="gender" type='radio' name='gender' value='Male'>
+      <i class="fa fa-venus " aria-hidden="true"></i><input class ="gender" type='radio' name = 'gender'value='Female'>
+      <i class="fa fa-genderless " aria-hidden="true"></i><input class ="gender" type='radio' name='gender' value='Others'>
+      <input type='text' placeholder='Date Of Birth' id="cu_dob">
+      <input type='password' placeholder='Enter Password' id="cu_password" required>
+      <input type='password'  placeholder = 'Confirm Password' id="cu_password2" required>
+      <button class='create'>Create Account</button>
+`
     }
   }
     document.querySelector('#login').addEventListener('click',()=> {
     popup.login();
     setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceOut')},100);
     setTimeout(()=>{document.querySelector('.popup').classList.add('bounceIn')},100);
-
       document.querySelector('.login').addEventListener('click',function(){
         document.querySelector('.containment').innerHTML =  spitLogin('login')
         setTimeout(()=>{document.querySelector('.containment').classList.toggle('SlideInLeft')},100);
@@ -102,7 +61,6 @@
       document.querySelector('.signup').addEventListener('click',()=> {
         setTimeout(()=>{document.querySelector('.containment').classList.toggle('SlideInLeft')},100);
         document.querySelector('.containment').innerHTML = spitLogin('signup')
-
         document.querySelector('.create').addEventListener('click',()=> {
           let cu_username = document.querySelector('#cu_username').value;
           console.log("You Entered " + cu_username);
@@ -117,24 +75,27 @@
                           }
                         )
           });
-          let cu_fname = document.querySelector('#cu_fname').value;
-          let cu_email = document.querySelector('#cu_email').value;
-          let cu_gender = [...document.querySelectorAll('.gender')].filter(a => a.checked)[0].value;
-          let cu_dob = document.querySelector('#cu_dob').value;
-          let cu_password = document.querySelector('#cu_password').value === document.querySelector('#cu_password2').value ? document.querySelector('#cu_password').value : console.log('error');
-          var formData = new FormData();
-          formData.append('csrfmiddlewaretoken','aOXYV8DcJQauX5LU8hVdsSaJhMyzCeQ9AD7SwBhpRHyKLHoab2fVZLF1pXZ69WNp');
-          formData.append('id_username',cu_username);
-          formData.append('id_email',cu_email);
-          formData.append('id_full_name',cu_fname);
-          formData.append('id_gender',cu_gender);
-          formData.append('id_birth_date',cu_dob);
-          formData.append('id_password1',cu_password);
-          formData.append('id_password2',cu_password);
+              let cu_fname = document.querySelector('#cu_fname').value;
+              let cu_email = document.querySelector('#cu_email').value;
+              let cu_gender = [...document.querySelectorAll('.gender')].filter(a => a.checked)[0].value;
+              let cu_dob = document.querySelector('#cu_dob').value;
+              let cu_password = document.querySelector('#cu_password').value === document.querySelector('#cu_password2').value ? document.querySelector('#cu_password').value : console.log('error');
+              let data = {
+                'csrfmiddlewaretoken' : 'aOXYV8DcJQauX5LU8hVdsSaJhMyzCeQ9AD7SwBhpRHyKLHoab2fVZLF1pXZ69WNp',
+                'id_username' : cu_username,
+                'id_email' : cu_email,
+                'id_full_name': cu_fname,
+                'id_gender' : cu_gender,
+                'id_birth_date' : cu_dob,
+                'id_password1': cu_password,
+                'id_password2': cu_password
+                }
+              console.log('username : ' + data.id_username);
+        let form = document.querySelector('#userform');
           fetch('https://cors-anywhere.herokuapp.com/https://planrr.herokuapp.com/api/register/',{
             method : 'POST',
             headers : new Headers({'enctype':'multipart/form-data'}),
-            body:formData
+            body:data
           }).then(res => console.log(res))
         })
       });
@@ -207,6 +168,7 @@
             }
           })
     });
+    
     //All The Category Based restaurants Are Here
     document.querySelector('.results').addEventListener('click',(e)=>{
     e.preventDefault();
