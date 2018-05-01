@@ -209,10 +209,11 @@ border: 2px solid #fff;
   text-align: center;
   cursor:pointer;
   font-family: 'Raleway', sans-serif;
-  font-size: 56px;
+  font-size: 40px;
   position: fixed;
   top: 35%;
   border: 2px solid #fff;
+  border-radius: 15px;
 }
 .plan{
   width: 50%;
@@ -222,10 +223,11 @@ border: 2px solid #fff;
   text-align: center;
   cursor:pointer;
   font-family: 'Raleway', sans-serif;
-  font-size: 56px;
+  font-size: 40px;
   position: fixed;
   top: 65%;
   border: 2px solid #fff;
+  border-radius: 15px;
 }
 .results {
   list-style: none;

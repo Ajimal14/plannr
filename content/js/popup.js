@@ -8,10 +8,11 @@ const popup = {
       <div class='navig'>
              <i class="fa fa-car" aria-hidden="true"></i><br>Navigate
      </div>
-      <div class='plan'>
-             <i class="fa fa-users" aria-hidden="true"></i><br>Plan
-      </div>
+
        `;
+      //  <div class='plan'>
+      //        <i class="fa fa-users" aria-hidden="true"></i><br>Plan
+      // </div>
     document.querySelector('.close').addEventListener('click',()=> {
       setTimeout(()=>{document.querySelector('.popup').classList.remove('bounceIn')},100);
       setTimeout(()=>{document.querySelector('.popup').classList.add('bounceOut')},100);

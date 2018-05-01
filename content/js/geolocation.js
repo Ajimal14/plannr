@@ -37,16 +37,17 @@
     }
     else {
       return `
-      <input type='text' placeholder = "User Name"  id="cu_username" required>
-      <input type='text' placeholder = "Full Name" id="cu_fname" required>
-      <input type='email' placeholder = "Email Address" id="cu_email" required> <br>
-      <i class="fa fa-mars " aria-hidden="true"></i><input  class ="gender" type='radio' name='gender' value='Male'>
-      <i class="fa fa-venus " aria-hidden="true"></i><input class ="gender" type='radio' name = 'gender'value='Female'>
-      <i class="fa fa-genderless " aria-hidden="true"></i><input class ="gender" type='radio' name='gender' value='Others'>
-      <input type='text' placeholder='Date Of Birth' id="cu_dob">
-      <input type='password' placeholder='Enter Password' id="cu_password" required>
-      <input type='password'  placeholder = 'Confirm Password' id="cu_password2" required>
-      <button class='create'>Create Account</button>
+      <form class="newform" method="POST" enctype="multipart/form-data">
+       <input type="hidden" name="csrfmiddlewaretoken" value="MRABsGmYR7E0YYShnDJRXFkuv25iA01UFEe2YGojJzk95DW6XIrq1la9NoJkQeOM">
+      <label for="id_username">Username:</label><input type="text" name="username" maxlength="255" required="" id="id_username"><br>
+      <label for="id_email">Email:</label><input type="email" name="email" maxlength="255" required="" id="id_email"><br>
+      <label for="id_full_name">Full name:</label><input type="text" name="full_name" maxlength="255" required="" id="id_full_name"><br>
+      <label for="id_gender">Gender:</label><input type="text" name="gender" value="rather_not_say" maxlength="255" id="id_gender"><br>
+      <label for="id_birth_date">Birth date:</label><input type="text" name="birth_date" value="1999-09-09" id="id_birth_date"><br>
+      <label for="id_password1">Password:</label><input type="password" name="password1" required="" id="id_password1"><br>
+      <label for="id_password2">Password confirmation:</label><input type="password" name="password2" required="" id="id_password2"><br>
+      <button type="submit" class="btn btn-default create">Submit</button>
+            </form>
 `
     }
   }
@@ -62,40 +63,45 @@
         setTimeout(()=>{document.querySelector('.containment').classList.toggle('SlideInLeft')},100);
         document.querySelector('.containment').innerHTML = spitLogin('signup')
         document.querySelector('.create').addEventListener('click',()=> {
-          let cu_username = document.querySelector('#cu_username').value;
-          console.log("You Entered " + cu_username);
-          fetch('https://cors-anywhere.herokuapp.com/https://planrr.herokuapp.com/api/users/')
-                .then(res => res.json())
-                  .then(data => {
-                        data.map(a =>
-                          {
-                            if(a.username == cu_username){
-                            console.log('user exists');
-                            }
-                          }
-                        )
-          });
-              let cu_fname = document.querySelector('#cu_fname').value;
-              let cu_email = document.querySelector('#cu_email').value;
-              let cu_gender = [...document.querySelectorAll('.gender')].filter(a => a.checked)[0].value;
-              let cu_dob = document.querySelector('#cu_dob').value;
-              let cu_password = document.querySelector('#cu_password').value === document.querySelector('#cu_password2').value ? document.querySelector('#cu_password').value : console.log('error');
-              let data = {
-                'csrfmiddlewaretoken' : 'aOXYV8DcJQauX5LU8hVdsSaJhMyzCeQ9AD7SwBhpRHyKLHoab2fVZLF1pXZ69WNp',
-                'id_username' : cu_username,
-                'id_email' : cu_email,
-                'id_full_name': cu_fname,
-                'id_gender' : cu_gender,
-                'id_birth_date' : cu_dob,
-                'id_password1': cu_password,
-                'id_password2': cu_password
-                }
-              console.log('username : ' + data.id_username);
-        let form = document.querySelector('#userform');
-          fetch('https://cors-anywhere.herokuapp.com/https://planrr.herokuapp.com/api/register/',{
+          // let cu_username = document.querySelector('#cu_username').value;
+          // console.log("You Entered " + cu_username);
+          // fetch('https://cors-anywhere.herokuapp.com/https://planrr.herokuapp.com/api/users/')
+          //       .then(res => res.json())
+          //         .then(data => {
+          //               data.map(a =>
+          //                 {
+          //                   if(a.username == cu_username){
+          //                   console.log('user exists');
+          //                   }
+          //                 }
+          //               )
+          // });
+              // let cu_fname = document.querySelector('#cu_fname').value;
+              // let cu_email = document.querySelector('#cu_email').value;
+              // let cu_gender = [...document.querySelectorAll('.gender')].filter(a => a.checked)[0].value;
+              // let cu_dob = document.querySelector('#cu_dob').value;
+              // let cu_password = document.querySelector('#cu_password').value === document.querySelector('#cu_password2').value ? document.querySelector('#cu_password').value : console.log('error');
+              // let data = {
+              //   'csrfmiddlewaretoken' : 'aOXYV8DcJQauX5LU8hVdsSaJhMyzCeQ9AD7SwBhpRHyKLHoab2fVZLF1pXZ69WNp',
+              //   'id_username' : cu_username,
+              //   'id_email' : cu_email,
+              //   'id_full_name': cu_fname,
+              //   'id_gender' : cu_gender,
+              //   'id_birth_date' : cu_dob,
+              //   'id_password1': cu_password,
+              //   'id_password2': cu_password
+              //   }
+              // console.log('username : ' + data.id_username);
+        let form = document.querySelector('.newform');
+        console.log(form);
+          fetch('https://cors-anywhere.herokuapp.com/https://planrr04.herokuapp.com/api/register/',{
             method : 'POST',
-            headers : new Headers({'enctype':'multipart/form-data'}),
-            body:data
+
+            headers : new Headers({
+              'enctype':'multipart/form-data',
+              'Content-Type': 'application/json'
+            }),
+            body:form
           }).then(res => console.log(res))
         })
       });
@@ -168,7 +174,7 @@
             }
           })
     });
-    
+
     //All The Category Based restaurants Are Here
     document.querySelector('.results').addEventListener('click',(e)=>{
     e.preventDefault();
@@ -186,11 +192,11 @@
       e.preventDefault();
       window.location.href = `http://www.google.com/maps/dir//${addr}/@${loc}`;
       })
-      document.querySelector('.plan').addEventListener('click',()=> {
-        document.querySelector('.popup-body').innerHTML = `
-        <div class="inputbox">Username:<input type="text" class ="getID" class="animated jackInTheBox"></div>
-        <div class="inputbox">Password<input type="password" class="getPassword" class="animated jackInTheBox"></div>
-        `
-        })
+      // document.querySelector('.plan').addEventListener('click',()=> {
+      //   document.querySelector('.popup-body').innerHTML = `
+      //   <div class="inputbox">Username:<input type="text" class ="getID" class="animated jackInTheBox"></div>
+      //   <div class="inputbox">Password<input type="password" class="getPassword" class="animated jackInTheBox"></div>
+      //   `
+      //   })
     })
   })()
